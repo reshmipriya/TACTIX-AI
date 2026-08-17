@@ -1,0 +1,114 @@
+{
+  "type": "FeatureCollection",
+  "name": "OSM_BUILDINGS",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 301,
+        "building": "industrial",
+        "name": "Sector Logistics Depot A",
+        "height_m": 12
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.138,
+              12.992
+            ],
+            [
+              80.142,
+              12.992
+            ],
+            [
+              80.142,
+              12.988
+            ],
+            [
+              80.138,
+              12.988
+            ],
+            [
+              80.138,
+              12.992
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 302,
+        "building": "commercial",
+        "name": "Communications Relay Substation",
+        "height_m": 18
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.182,
+              12.962
+            ],
+            [
+              80.186,
+              12.962
+            ],
+            [
+              80.186,
+              12.958
+            ],
+            [
+              80.182,
+              12.958
+            ],
+            [
+              80.182,
+              12.962
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 303,
+        "building": "civic",
+        "name": "North Command Outpost",
+        "height_m": 10
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.158,
+              13.002
+            ],
+            [
+              80.162,
+              13.002
+            ],
+            [
+              80.162,
+              12.998
+            ],
+            [
+              80.158,
+              12.998
+            ],
+            [
+              80.158,
+              13.002
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

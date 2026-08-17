@@ -1,0 +1,31 @@
+{
+  "type": "FeatureCollection",
+  "name": "TACTIX_AOI_STUDY_AREA",
+  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "aoi_id": "AOI-CHENNAI-SECTOR-01",
+        "name": "Coastal Operations & Riverine Corridor AOI",
+        "lat_min": 12.9500,
+        "lat_max": 13.0100,
+        "lon_min": 80.1300,
+        "lon_max": 80.2000,
+        "area_sq_km": 42.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [80.1300, 12.9500],
+            [80.2000, 12.9500],
+            [80.2000, 13.0100],
+            [80.1300, 13.0100],
+            [80.1300, 12.9500]
+          ]
+        ]
+      }
+    }
+  ]
+}

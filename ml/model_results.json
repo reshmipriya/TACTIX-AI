@@ -1,0 +1,20 @@
+{
+  "dataset_size": 3000,
+  "train_samples": 2100,
+  "val_samples": 450,
+  "test_samples": 450,
+  "metrics": {
+    "MAE": 0.296,
+    "RMSE": 0.388,
+    "R2": 0.9989
+  },
+  "feature_importances": {
+    "terrain_score": 0.23,
+    "weather_score": 0.22,
+    "logistics_score": 0.2,
+    "intelligence_uncertainty": 0.18,
+    "time_pressure": 0.09,
+    "constraint_pressure": 0.08
+  },
+  "conclusion": "Model achieves high R2 (>0.98) tracking deterministic baseline with minimal variance. Expose as secondary comparison metric in UI while keeping deterministic weighted model authoritative."
+}

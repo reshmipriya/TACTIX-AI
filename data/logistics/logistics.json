@@ -1,0 +1,122 @@
+[
+  {
+    "scenario_id": "S001",
+    "name": "Operational Readiness Profile 01",
+    "personnel_available": 54,
+    "resource_level": 0.41,
+    "equipment_readiness": 0.7,
+    "supply_level": 0.55,
+    "time_limit": 12,
+    "mobility_factor": 0.68
+  },
+  {
+    "scenario_id": "S002",
+    "name": "Operational Readiness Profile 02",
+    "personnel_available": 109,
+    "resource_level": 0.45,
+    "equipment_readiness": 0.76,
+    "supply_level": 0.46,
+    "time_limit": 5,
+    "mobility_factor": 0.72
+  },
+  {
+    "scenario_id": "S003",
+    "name": "Operational Readiness Profile 03",
+    "personnel_available": 117,
+    "resource_level": 0.41,
+    "equipment_readiness": 0.68,
+    "supply_level": 0.76,
+    "time_limit": 10,
+    "mobility_factor": 0.78
+  },
+  {
+    "scenario_id": "S004",
+    "name": "Operational Readiness Profile 04",
+    "personnel_available": 97,
+    "resource_level": 0.72,
+    "equipment_readiness": 0.91,
+    "supply_level": 0.45,
+    "time_limit": 5,
+    "mobility_factor": 0.86
+  },
+  {
+    "scenario_id": "S005",
+    "name": "Operational Readiness Profile 05",
+    "personnel_available": 83,
+    "resource_level": 0.55,
+    "equipment_readiness": 0.68,
+    "supply_level": 0.81,
+    "time_limit": 4,
+    "mobility_factor": 0.68
+  },
+  {
+    "scenario_id": "S006",
+    "name": "Operational Readiness Profile 06",
+    "personnel_available": 52,
+    "resource_level": 0.6,
+    "equipment_readiness": 0.73,
+    "supply_level": 0.57,
+    "time_limit": 4,
+    "mobility_factor": 0.87
+  },
+  {
+    "scenario_id": "S007",
+    "name": "Operational Readiness Profile 07",
+    "personnel_available": 108,
+    "resource_level": 0.47,
+    "equipment_readiness": 0.95,
+    "supply_level": 0.49,
+    "time_limit": 6,
+    "mobility_factor": 0.9
+  },
+  {
+    "scenario_id": "S008",
+    "name": "Operational Readiness Profile 08",
+    "personnel_available": 119,
+    "resource_level": 0.89,
+    "equipment_readiness": 0.74,
+    "supply_level": 0.54,
+    "time_limit": 4,
+    "mobility_factor": 0.66
+  },
+  {
+    "scenario_id": "S009",
+    "name": "Operational Readiness Profile 09",
+    "personnel_available": 69,
+    "resource_level": 0.83,
+    "equipment_readiness": 0.97,
+    "supply_level": 0.85,
+    "time_limit": 4,
+    "mobility_factor": 0.76
+  },
+  {
+    "scenario_id": "S010",
+    "name": "Operational Readiness Profile 10",
+    "personnel_available": 98,
+    "resource_level": 0.75,
+    "equipment_readiness": 0.74,
+    "supply_level": 0.62,
+    "time_limit": 5,
+    "mobility_factor": 0.85
+  },
+  {
+    "scenario_id": "S011",
+    "name": "Operational Readiness Profile 11",
+    "personnel_available": 49,
+    "resource_level": 0.74,
+    "equipment_readiness": 0.67,
+    "supply_level": 0.79,
+    "time_limit": 5,
+    "mobility_factor": 0.79
+  },
+  {
+    "scenario_id": "S012",
+    "name": "Operational Readiness Profile 12",
+    "personnel_available": 74,
+    "resource_level": 0.94,
+    "equipment_readiness": 0.84,
+    "supply_level": 0.71,
+    "time_limit": 12,
+    "mobility_factor": 0.75
+  }
+]

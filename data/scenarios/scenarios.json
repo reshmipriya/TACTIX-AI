@@ -1,0 +1,77 @@
+[
+  {
+    "scenario_id": "SIM-0001",
+    "name": "Alpha-Prime Monsoon Transit",
+    "description": "Rapid logistics transit through northern corridor during heavy precipitation and strict 5-hour cutoff.",
+    "weather_condition": "HEAVY_RAIN",
+    "resource_level": 0.55,
+    "personnel": 80,
+    "time_limit": 5,
+    "intelligence_confidence": 0.62,
+    "terrain_preference": "AVOID_WATER",
+    "start": {
+      "row": 2,
+      "col": 2,
+      "lat": 13.006,
+      "lon": 80.134,
+      "label": "Point Echo (Northwest Depot)"
+    },
+    "goal": {
+      "row": 27,
+      "col": 32,
+      "lat": 12.954,
+      "lon": 80.194,
+      "label": "Point Sierra (Southeast Staging Area)"
+    }
+  },
+  {
+    "scenario_id": "SIM-0002",
+    "name": "Bravo Resource Conservation Patrol",
+    "description": "Standard reconnaissance with tight resource limitations requiring optimal fuel efficiency and low roughness exposure.",
+    "weather_condition": "LIGHT_RAIN",
+    "resource_level": 0.4,
+    "personnel": 60,
+    "time_limit": 8,
+    "intelligence_confidence": 0.85,
+    "terrain_preference": "AVOID_DIFFICULT",
+    "start": {
+      "row": 4,
+      "col": 5,
+      "lat": 13.002,
+      "lon": 80.14,
+      "label": "Point Echo (Northwest Depot)"
+    },
+    "goal": {
+      "row": 26,
+      "col": 30,
+      "lat": 12.956,
+      "lon": 80.19,
+      "label": "Point Sierra (Southeast Staging Area)"
+    }
+  },
+  {
+    "scenario_id": "SIM-0003",
+    "name": "Charlie High Wind Emergency Sweep",
+    "description": "High wind gale with elevated intelligence uncertainty and restrictive corridor bounds.",
+    "weather_condition": "HIGH_WIND",
+    "resource_level": 0.75,
+    "personnel": 100,
+    "time_limit": 6,
+    "intelligence_confidence": 0.48,
+    "terrain_preference": "ANY",
+    "start": {
+      "row": 3,
+      "col": 3,
+      "lat": 13.004,
+      "lon": 80.136,
+      "label": "Point Echo (Northwest Depot)"
+    },
+    "goal": {
+      "row": 28,
+      "col": 31,
+      "lat": 12.952,
+      "lon": 80.192,
+      "label": "Point Sierra (Southeast Staging Area)"
+    }
+  }
+]

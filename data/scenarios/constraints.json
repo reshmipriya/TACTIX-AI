@@ -1,0 +1,65 @@
+[
+  {
+    "scenario_id": "S001",
+    "time_limit": 6,
+    "resource_limit": 0.5,
+    "environmental_limit": 0.75,
+    "simulation_boundary": "AOI-CHENNAI-SECTOR-01",
+    "restricted_zones": [
+      {
+        "zone_id": "RESTRICTED_ZONE_1",
+        "name": "Ecological Wetland Sanctuary",
+        "coordinates": [
+          [
+            80.145,
+            12.975
+          ],
+          [
+            80.155,
+            12.975
+          ],
+          [
+            80.155,
+            12.968
+          ],
+          [
+            80.145,
+            12.968
+          ],
+          [
+            80.145,
+            12.975
+          ]
+        ],
+        "reason": "Impassable marsh sanctuary - prohibited entry"
+      },
+      {
+        "zone_id": "RESTRICTED_ZONE_2",
+        "name": "High Voltage Grid Substation",
+        "coordinates": [
+          [
+            80.178,
+            12.965
+          ],
+          [
+            80.186,
+            12.965
+          ],
+          [
+            80.186,
+            12.958
+          ],
+          [
+            80.178,
+            12.958
+          ],
+          [
+            80.178,
+            12.965
+          ]
+        ],
+        "reason": "Infrastructure safety exclusion zone"
+      }
+    ]
+  }
+]

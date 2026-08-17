@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "name": "OSM_WATERWAYS",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 201,
+        "waterway": "river",
+        "name": "Adyar River Basin Channel",
+        "width_m": 45,
+        "crossable": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.13,
+            12.982
+          ],
+          [
+            80.145,
+            12.98
+          ],
+          [
+            80.162,
+            12.975
+          ],
+          [
+            80.18,
+            12.968
+          ],
+          [
+            80.2,
+            12.965
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 202,
+        "waterway": "canal",
+        "name": "East Drainage Tributary",
+        "width_m": 12,
+        "crossable": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.17,
+            13.01
+          ],
+          [
+            80.172,
+            12.99
+          ],
+          [
+            80.18,
+            12.968
+          ]
+        ]
+      }
+    }
+  ]
+}

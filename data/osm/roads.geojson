@@ -1,0 +1,134 @@
+{
+  "type": "FeatureCollection",
+  "name": "OSM_ROADS",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 101,
+        "highway": "primary",
+        "name": "Highway 45 Corridor",
+        "lanes": 4,
+        "surface": "asphalt",
+        "speed_kmh": 70
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.132,
+            13.002
+          ],
+          [
+            80.15,
+            12.985
+          ],
+          [
+            80.17,
+            12.972
+          ],
+          [
+            80.195,
+            12.955
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 102,
+        "highway": "secondary",
+        "name": "North Sector Bypass",
+        "lanes": 2,
+        "surface": "asphalt",
+        "speed_kmh": 50
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.135,
+            13.005
+          ],
+          [
+            80.155,
+            13.003
+          ],
+          [
+            80.185,
+            12.992
+          ],
+          [
+            80.198,
+            12.98
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 103,
+        "highway": "tertiary",
+        "name": "River Valley Access Road",
+        "lanes": 2,
+        "surface": "paved",
+        "speed_kmh": 40
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.142,
+            12.96
+          ],
+          [
+            80.158,
+            12.97
+          ],
+          [
+            80.165,
+            12.985
+          ],
+          [
+            80.172,
+            13.0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 104,
+        "highway": "track",
+        "name": "Ridgeline Patrol Track",
+        "lanes": 1,
+        "surface": "unpaved",
+        "speed_kmh": 25
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.138,
+            12.975
+          ],
+          [
+            80.152,
+            12.962
+          ],
+          [
+            80.175,
+            12.958
+          ],
+          [
+            80.188,
+            12.952
+          ]
+        ]
+      }
+    }
+  ]
+}

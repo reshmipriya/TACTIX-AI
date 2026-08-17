@@ -1,0 +1,111 @@
+{
+  "type": "FeatureCollection",
+  "name": "OSM_LANDUSE",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 501,
+        "landuse": "industrial",
+        "name": "Industrial Freight Zone"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.134,
+              12.995
+            ],
+            [
+              80.146,
+              12.995
+            ],
+            [
+              80.146,
+              12.985
+            ],
+            [
+              80.134,
+              12.985
+            ],
+            [
+              80.134,
+              12.995
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 502,
+        "landuse": "forest",
+        "name": "Reserve Woodlands Sector C"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.148,
+              12.978
+            ],
+            [
+              80.168,
+              12.978
+            ],
+            [
+              80.168,
+              12.96
+            ],
+            [
+              80.148,
+              12.96
+            ],
+            [
+              80.148,
+              12.978
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 503,
+        "landuse": "farmland",
+        "name": "South Agricultural Basin"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.17,
+              12.96
+            ],
+            [
+              80.198,
+              12.96
+            ],
+            [
+              80.198,
+              12.95
+            ],
+            [
+              80.17,
+              12.95
+            ],
+            [
+              80.17,
+              12.96
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

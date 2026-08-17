@@ -1,0 +1,52 @@
+{
+  "type": "FeatureCollection",
+  "name": "OSM_BRIDGES",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 401,
+        "bridge": "yes",
+        "highway": "primary",
+        "name": "Central Crossing Bridge",
+        "maxweight_tons": 60
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.161,
+            12.976
+          ],
+          [
+            80.163,
+            12.974
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 402,
+        "bridge": "yes",
+        "highway": "secondary",
+        "name": "East Bypass Span",
+        "maxweight_tons": 45
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.179,
+            12.969
+          ],
+          [
+            80.181,
+            12.967
+          ]
+        ]
+      }
+    }
+  ]
+}
