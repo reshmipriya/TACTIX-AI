@@ -64,7 +64,7 @@ export function ViewModeProvider({ children }: { children: React.ReactNode }) {
   const startTour = () => {
     setIsWelcomeOpen(false);
     setIsHelpOpen(false);
-    setTourStep(1);
+    setTourStep(0);
     setIsTourOpen(true);
   };
 

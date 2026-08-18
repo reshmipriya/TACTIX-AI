@@ -21,40 +21,42 @@ interface COACardProps {
   coa: COA;
   isSelected?: boolean;
   onSelect?: () => void;
-  isAdvancedMode?: boolean;
 }
 
-export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: COACardProps) {
+export function COACard({ coa, isSelected, onSelect }: COACardProps) {
   const { openWhyModal } = useViewMode();
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const isPreferred = coa.isPreferred;
   const status = coa.constraints.status;
 
-  // Friendly Option Icon & Subtitle (Section 9)
+  // Chapter 14 Descriptors:
+  // Alpha: Faster simulated option
+  // Bravo: Resource-efficient simulated option
+  // Charlie: Lower environmental difficulty
   let OptionIcon = Zap;
-  let friendlyTitle = "⚡ OPTION ALPHA";
-  let friendlySubtitle = "Faster simulated option (Express Corridor)";
+  let friendlyTitle = "Option Alpha";
+  let friendlySubtitle = "Faster simulated option";
 
   if (coa.name === "Bravo") {
     OptionIcon = Package;
-    friendlyTitle = "📦 OPTION BRAVO";
-    friendlySubtitle = "Resource-efficient simulated option (Fuel Preservation)";
+    friendlyTitle = "Option Bravo";
+    friendlySubtitle = "Resource-efficient simulated option";
   } else if (coa.name === "Charlie") {
     OptionIcon = Leaf;
-    friendlyTitle = "🌿 OPTION CHARLIE";
-    friendlySubtitle = "Lower environmental difficulty (Hazard Bypass)";
+    friendlyTitle = "Option Charlie";
+    friendlySubtitle = "Lower environmental difficulty";
   }
 
-  // Friendly Status Badges (Section 22)
-  let statusBadge = "✓ Valid";
+  // Accessible Status Badges (Chapter 26: Symbol + Colour together)
+  let statusBadge = "✓ VALID";
   let statusColor = "bg-tactical-green/20 text-tactical-green border-tactical-green/40";
 
   if (status === "WARNING") {
-    statusBadge = "⚠ Warning";
+    statusBadge = "■ WARNING";
     statusColor = "bg-tactical-amber/20 text-tactical-amber border-tactical-amber/40";
   } else if (status === "INVALID") {
-    statusBadge = "✕ Invalid";
+    statusBadge = "✗ INVALID";
     statusColor = "bg-tactical-red/20 text-tactical-red border-tactical-red/40";
   }
 
@@ -63,16 +65,20 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
     openWhyModal(
       `Why is ${friendlyTitle} scored ${coa.risk.overall}/100?`,
       `This risk score represents estimated friction inside the simulated environment based on:\n` +
-      `• Weather condition adds +${coa.risk.contributions.weather} pts.\n` +
-      `• Terrain slope and roughness along the route adds +${coa.risk.contributions.terrain} pts.\n` +
-      `• Resource consumption (${Math.round(coa.metrics.resource_consumption * 100)}%) adds +${coa.risk.contributions.logistics} pts.\n` +
-      `• Route information uncertainty adds +${coa.risk.contributions.intelligence} pts.\n\n` +
-      `This is a deterministic mathematical score, not an automated command.`,
+      `• Weather impact along route adds +${coa.risk.contributions.weather} pts.\n` +
+      `• Terrain difficulty (slope & roughness) adds +${coa.risk.contributions.terrain} pts.\n` +
+      `• Resource availability strain adds +${coa.risk.contributions.logistics} pts.\n` +
+      `• Information uncertainty adds +${coa.risk.contributions.intelligence} pts.\n` +
+      `• Time pressure adds +${coa.risk.contributions.time} pts.\n` +
+      `• Rule check constraints add +${coa.risk.contributions.constraints} pts.\n\n` +
+      `All numbers are calculated deterministically from simulation outputs.`,
       [
         { label: "Weather Impact (22%)", value: `+${coa.risk.contributions.weather} pts`, color: "#3B82F6" },
         { label: "Terrain Difficulty (22%)", value: `+${coa.risk.contributions.terrain} pts`, color: "#8B6F47" },
         { label: "Resource Strain (20%)", value: `+${coa.risk.contributions.logistics} pts`, color: "#00D9A3" },
         { label: "Information Uncertainty (18%)", value: `+${coa.risk.contributions.intelligence} pts`, color: "#FFB020" },
+        { label: "Time Pressure (10%)", value: `+${coa.risk.contributions.time} pts`, color: "#C9A24B" },
+        { label: "Constraint Impact (8%)", value: `+${coa.risk.contributions.constraints} pts`, color: "#FF3B5C" },
       ]
     );
   };
@@ -114,7 +120,7 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
         <p className="text-xs text-tactical-muted font-mono">{friendlySubtitle}</p>
       </div>
 
-      {/* Primary Clean Metrics Grid (Section 9) */}
+      {/* Primary Clean Metrics Grid (Chapter 14) */}
       <div className="grid grid-cols-3 gap-2 font-mono text-xs">
         <div className="bg-[#0B0F14] p-2.5 rounded border border-[#2A3441]">
           <span className="text-[10px] text-slate-400 block uppercase">Risk</span>
@@ -157,14 +163,14 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
         </div>
       </div>
 
-      {/* Action Buttons: Why & View Details */}
+      {/* Action Buttons: [ Why? ] and [ View Details ] (Chapter 14) */}
       <div className="flex items-center justify-between pt-1 border-t border-[#2A3441] font-mono text-xs">
         <button
           onClick={handleWhyClick}
           className="flex items-center space-x-1 px-2.5 py-1 rounded bg-[#1A2330] border border-[#2A3441] text-tactical-green hover:border-tactical-green transition-all"
         >
           <HelpCircle className="w-3 h-3" />
-          <span>Why?</span>
+          <span>[ Why? ]</span>
         </button>
 
         <button
@@ -174,14 +180,17 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
           }}
           className="flex items-center space-x-1 text-slate-400 hover:text-white transition-colors"
         >
-          <span>{isDetailsOpen ? "Hide Details" : "View Details"}</span>
+          <span>{isDetailsOpen ? "[ Hide Details ]" : "[ View Details ]"}</span>
           {isDetailsOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </button>
       </div>
 
-      {/* Expandable Technical Details (Advanced / Progressive Disclosure) */}
+      {/* Expandable Technical Details (Progressive Disclosure - Chapter 23) */}
       {isDetailsOpen && (
         <div className="bg-[#0B0F14] p-3 rounded border border-[#2A3441] space-y-2 font-mono text-[11px] animate-in fade-in duration-150">
+          <div className="text-[10px] text-tactical-muted uppercase font-bold border-b border-[#2A3441] pb-1">
+            Technical Telemetry (Engineering Metrics)
+          </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
               <span className="text-slate-500 block text-[10px]">DISTANCE</span>
@@ -192,11 +201,11 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
               <span className="text-slate-200">{coa.metrics.average_speed_kmh} km/h</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[10px]">TERRAIN FRICTION</span>
+              <span className="text-slate-500 block text-[10px]">TERRAIN DIFFICULTY</span>
               <span className="text-slate-200">{coa.metrics.terrain_exposure}/100</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[10px]">WEATHER STRESS</span>
+              <span className="text-slate-500 block text-[10px]">WEATHER IMPACT</span>
               <span className="text-slate-200">{coa.metrics.weather_exposure}/100</span>
             </div>
             <div>
@@ -204,13 +213,13 @@ export function COACard({ coa, isSelected, onSelect, isAdvancedMode = false }: C
               <span className="text-slate-200">{Math.round(coa.metrics.intel_uncertainty * 100)}%</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[10px]">MAX ENV COST</span>
+              <span className="text-slate-500 block text-[10px]">MAX ENV DIFFICULTY</span>
               <span className="text-slate-200">{coa.metrics.max_environment_cost}/100</span>
             </div>
           </div>
           {coa.constraints.violations.length > 0 && (
             <div className="p-1.5 bg-tactical-red/10 border border-tactical-red/30 rounded text-tactical-red text-[10px]">
-              ⚠️ Rule violation: {coa.constraints.violations[0].detail}
+              ✗ Rule Check Violation: {coa.constraints.violations[0].detail}
             </div>
           )}
         </div>

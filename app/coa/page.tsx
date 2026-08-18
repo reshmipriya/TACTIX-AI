@@ -5,13 +5,8 @@ import {
   GitBranch, 
   Layers, 
   BarChart3, 
-  ShieldAlert, 
   Award, 
   Compass, 
-  ChevronRight,
-  TrendingDown,
-  Clock,
-  Fuel,
   Activity
 } from "lucide-react";
 import { 
@@ -41,7 +36,7 @@ export default function COAMatrixPage() {
   const { coas, scenario } = simResult;
   const [alpha, bravo, charlie] = coas;
 
-  // Recharts Multi-Metric Comparison Data
+  // Chapter 19 & 24 Recharts Multi-Metric Comparison Data
   const comparisonData = [
     {
       metric: "Duration (h)",
@@ -56,38 +51,38 @@ export default function COAMatrixPage() {
       Charlie: Math.round(charlie.metrics.resource_consumption * 100),
     },
     {
-      metric: "Terrain Friction",
+      metric: "Terrain Difficulty",
       Alpha: alpha.metrics.terrain_exposure,
       Bravo: bravo.metrics.terrain_exposure,
       Charlie: charlie.metrics.terrain_exposure,
     },
     {
-      metric: "Weather Stress",
+      metric: "Weather Impact",
       Alpha: alpha.metrics.weather_exposure,
       Bravo: bravo.metrics.weather_exposure,
       Charlie: charlie.metrics.weather_exposure,
     },
     {
-      metric: "Overall Risk",
+      metric: "Simulated Risk",
       Alpha: alpha.risk.overall,
       Bravo: bravo.risk.overall,
       Charlie: charlie.risk.overall,
     },
   ];
 
-  // Radar Chart Data for Multi-Dimensional Profile
+  // Radar Chart Profile for Simulated Alternatives
   const radarData = [
     { subject: "Speed", Alpha: 90, Bravo: 70, Charlie: 55, fullMark: 100 },
     { subject: "Fuel Efficiency", Alpha: 60, Bravo: 92, Charlie: 68, fullMark: 100 },
     { subject: "Terrain Safety", Alpha: 55, Bravo: 78, Charlie: 88, fullMark: 100 },
     { subject: "Weather Resilience", Alpha: 65, Bravo: 80, Charlie: 85, fullMark: 100 },
-    { subject: "Intel Clarity", Alpha: 68, Bravo: 82, Charlie: 74, fullMark: 100 },
-    { subject: "Constraint Margin", Alpha: 75, Bravo: 90, Charlie: 80, fullMark: 100 },
+    { subject: "Information Clarity", Alpha: 68, Bravo: 82, Charlie: 74, fullMark: 100 },
+    { subject: "Rule Margin", Alpha: 75, Bravo: 90, Charlie: 80, fullMark: 100 },
   ];
 
   return (
-    <div className="max-w-[1780px] w-full mx-auto p-4 lg:p-6 space-y-6 flex-1">
-      {/* Header */}
+    <div className="max-w-[1780px] w-full mx-auto p-4 lg:p-6 space-y-6 flex-1 font-mono">
+      {/* Header Block (Chapter 19) */}
       <div className="tactical-panel p-5 space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
@@ -95,25 +90,25 @@ export default function COAMatrixPage() {
               <GitBranch className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="font-mono text-xl font-bold text-slate-100 uppercase tracking-wide">
-                COURSES OF ACTION (COA) COMPARISON MATRIX
+              <h1 className="text-xl font-bold text-slate-100 uppercase tracking-wide">
+                SIMULATED OPTIONS COMPARISON
               </h1>
-              <p className="text-xs text-tactical-muted font-mono">
-                Multi-Objective Optimization Trade-Offs · Baseline: {scenario.name}
+              <p className="text-xs text-tactical-muted">
+                Multi-Objective Optimization Trade-Offs · Study Area: {scenario.name}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 font-mono text-xs">
-            <span className="text-slate-400">Preferred Option:</span>
+          <div className="flex items-center space-x-2 text-xs">
+            <span className="text-slate-400">Preferred Alternative:</span>
             <span className="px-2.5 py-1 rounded bg-tactical-green/20 text-tactical-green font-bold border border-tactical-green/40">
-              {simResult.preferredCOA.name} ({simResult.preferredCOA.risk.overall}/100 Risk)
+              Option {simResult.preferredCOA.name} ({simResult.preferredCOA.risk.overall}/100 Risk)
             </span>
           </div>
         </div>
       </div>
 
-      {/* 3 COA Detail Cards */}
+      {/* 3 Simulated Option Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {coas.map((coa) => (
           <COACard
@@ -125,19 +120,19 @@ export default function COAMatrixPage() {
         ))}
       </div>
 
-      {/* Deep-Dive Comparative Charts */}
+      {/* Deep-Dive Comparative Visualizations (Chapter 19) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left: Bar Comparison Chart */}
+        {/* Left: Direct Metric Comparison */}
         <div className="lg:col-span-7 tactical-panel p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
-            <h3 className="font-mono text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
+            <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
               <BarChart3 className="w-4 h-4 text-tactical-blue" />
-              <span>DIRECT METRIC COMPARISON ACROSS ALTERNATIVES</span>
+              <span>DIRECT METRIC COMPARISON ACROSS SIMULATED OPTIONS</span>
             </h3>
-            <span className="text-[10px] font-mono text-tactical-muted">Normalized Metrics</span>
+            <span className="text-[10px] text-tactical-muted">Calculated Outputs</span>
           </div>
 
-          <div className="h-72 w-full font-mono text-xs">
+          <div className="h-72 w-full text-xs">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={comparisonData} margin={{ top: 20, right: 20, left: -10, bottom: 5 }}>
                 <XAxis dataKey="metric" stroke="#93A1B4" fontSize={11} tickLine={false} />
@@ -147,33 +142,33 @@ export default function COAMatrixPage() {
                   itemStyle={{ fontSize: "11px" }}
                 />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
-                <Bar dataKey="Alpha" fill="#00D9A3" name="COA Alpha (Speed)" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Bravo" fill="#3B82F6" name="COA Bravo (Resources)" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Charlie" fill="#FFB020" name="COA Charlie (Environment)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Alpha" fill="#00D9A3" name="Option Alpha (Faster)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Bravo" fill="#3B82F6" name="Option Bravo (Resource-Efficient)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Charlie" fill="#FFB020" name="Option Charlie (Lower Env Difficulty)" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Right: Radar Chart Profile */}
+        {/* Right: Multi-Dimensional Capability Radar Profile */}
         <div className="lg:col-span-5 tactical-panel p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
-            <h3 className="font-mono text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
+            <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
               <Activity className="w-4 h-4 text-tactical-green" />
-              <span>MULTI-DIMENSIONAL COA PROFILE</span>
+              <span>MULTI-DIMENSIONAL CAPABILITY PROFILE</span>
             </h3>
-            <span className="text-[10px] font-mono text-tactical-muted">Capability Radar</span>
+            <span className="text-[10px] text-tactical-muted">Trade-Off Balance</span>
           </div>
 
-          <div className="h-72 w-full font-mono text-xs">
+          <div className="h-72 w-full text-xs">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={radarData} outerRadius={90}>
                 <PolarGrid stroke="#2A3441" />
                 <PolarAngleAxis dataKey="subject" stroke="#93A1B4" fontSize={10} />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#2A3441" fontSize={8} />
-                <Radar name="Alpha" dataKey="Alpha" stroke="#00D9A3" fill="#00D9A3" fillOpacity={0.25} />
-                <Radar name="Bravo" dataKey="Bravo" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.25} />
-                <Radar name="Charlie" dataKey="Charlie" stroke="#FFB020" fill="#FFB020" fillOpacity={0.25} />
+                <Radar name="Option Alpha" dataKey="Alpha" stroke="#00D9A3" fill="#00D9A3" fillOpacity={0.25} />
+                <Radar name="Option Bravo" dataKey="Bravo" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.25} />
+                <Radar name="Option Charlie" dataKey="Charlie" stroke="#FFB020" fill="#FFB020" fillOpacity={0.25} />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "5px" }} />
                 <Tooltip contentStyle={{ backgroundColor: "#131A24", borderColor: "#2A3441" }} />
               </RadarChart>
@@ -182,7 +177,7 @@ export default function COAMatrixPage() {
         </div>
       </div>
 
-      {/* Selected COA Risk Decomposition & Waypoint Summary */}
+      {/* Selected Option Risk Decomposition & Waypoint Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-6">
           <RiskBreakdown coa={selectedCOA} />
@@ -190,16 +185,16 @@ export default function COAMatrixPage() {
 
         <div className="lg:col-span-6 tactical-panel p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
-            <h3 className="font-mono text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
+            <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
               <Compass className="w-4 h-4 text-tactical-amber" />
               <span>WAYPOINT & CORRIDOR TRANSIT TELEMETRY</span>
             </h3>
-            <span className="text-[10px] font-mono text-tactical-green">
+            <span className="text-[10px] text-tactical-green">
               {selectedCOA.pathCells.length} Transit Nodes
             </span>
           </div>
 
-          <div className="max-h-72 overflow-y-auto space-y-2 pr-1 font-mono text-xs">
+          <div className="max-h-72 overflow-y-auto space-y-2 pr-1 text-xs">
             {selectedCOA.pathCells.map((cell, idx) => (
               <div
                 key={cell.cell_id}
@@ -223,7 +218,7 @@ export default function COAMatrixPage() {
                     <span className="text-slate-100">{cell.elevation}m ({cell.slope}°)</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block uppercase">Land Cover</span>
+                    <span className="text-[10px] text-slate-400 block uppercase">Land Type</span>
                     <span className="text-tactical-green capitalize">{cell.land_cover}</span>
                   </div>
                 </div>

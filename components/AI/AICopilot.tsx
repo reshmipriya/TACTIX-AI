@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bot, X, Send, Sparkles } from "lucide-react";
+import { Bot, X, Send, Sparkles, MessageSquare } from "lucide-react";
 import { COA, MissionScenario } from "@/lib/simulation/types";
 import { AnalysisMode } from "@/lib/ai/types";
 
@@ -19,11 +19,12 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
   >([
     {
       role: "assistant",
-      content: "Hello! I am your TACTIX Copilot. Ask me about this simulation, how options compare, or what factors drove the risk.",
+      content: "TACTIX COPILOT: Ask about this simulation.",
     },
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Section 19 Copilot Actions
   const handleQuickAction = async (mode: AnalysisMode, label: string) => {
     setMessages((prev) => [...prev, { role: "user", content: label }]);
     setIsProcessing(true);
@@ -43,7 +44,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
     } catch (e) {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Deterministic analysis ready in main panel." },
+        { role: "assistant", content: "AI interpretation is temporarily unavailable. You can review the simulation directly on the dashboard." },
       ]);
     } finally {
       setIsProcessing(false);
@@ -73,7 +74,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
     } catch (e) {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Simulation parameters evaluated." },
+        { role: "assistant", content: "Simulation data evaluated." },
       ]);
     } finally {
       setIsProcessing(false);
@@ -83,18 +84,21 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
   return (
     <div className="fixed bottom-4 right-4 z-40 font-mono">
       {!isOpen ? (
+        /* Compact Floating Badge (Section 19) */
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center space-x-2 px-3.5 py-2.5 rounded-btn bg-[#131A24] border border-tactical-green/60 text-slate-100 text-xs shadow-2xl hover:bg-tactical-green/20 transition-all group"
+          className="flex items-center space-x-2 px-3 py-2 rounded-full bg-[#131A24]/95 border border-tactical-green/50 text-slate-100 text-xs shadow-2xl hover:border-tactical-green hover:bg-[#1A2534] transition-all group backdrop-blur"
         >
-          <div className="p-1 rounded bg-tactical-green/20 text-tactical-green group-hover:bg-tactical-green group-hover:text-black transition-all">
-            <Bot className="w-4 h-4" />
+          <div className="p-1 rounded-full bg-tactical-green/20 text-tactical-green group-hover:bg-tactical-green group-hover:text-black transition-all">
+            <Bot className="w-3.5 h-3.5" />
           </div>
-          <span className="font-semibold text-tactical-green">TACTIX COPILOT</span>
+          <span className="font-semibold text-tactical-green text-xs pr-1">TACTIX AI</span>
           <span className="w-2 h-2 rounded-full bg-tactical-green animate-pulse" />
         </button>
       ) : (
-        <div className="w-[360px] sm:w-[420px] h-[520px] bg-[#131A24] border border-tactical-green/50 rounded-panel shadow-2xl flex flex-col text-xs overflow-hidden animate-in zoom-in-95 duration-150">
+        /* Contextual Dialog Drawer */
+        <div className="w-[340px] sm:w-[400px] h-[500px] bg-[#131A24] border border-tactical-green/50 rounded-panel shadow-2xl flex flex-col text-xs overflow-hidden animate-in zoom-in-95 duration-150">
+          
           {/* Header */}
           <div className="p-3 bg-[#0B0F14] border-b border-[#2A3441] flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -108,28 +112,28 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
             </button>
           </div>
 
-          {/* Quick Action Chips (Section 15) */}
-          <div className="p-2 bg-[#1A2330]/70 border-b border-[#2A3441] flex flex-wrap gap-1">
+          {/* Quick Action Chips (Section 19) */}
+          <div className="p-2 bg-[#16202E]/80 border-b border-[#2A3441] flex flex-wrap gap-1">
             <button
-              onClick={() => handleQuickAction("compare", "Compare the options")}
+              onClick={() => handleQuickAction("compare", "Compare options")}
               disabled={isProcessing}
               className="px-2 py-0.5 rounded bg-[#0B0F14] border border-[#2A3441] text-[10px] text-tactical-green hover:border-tactical-green"
             >
-              Compare the options
+              Compare options
             </button>
             <button
-              onClick={() => handleQuickAction("explain_risk", "Explain the risk")}
+              onClick={() => handleQuickAction("explain_risk", "Explain risk")}
               disabled={isProcessing}
               className="px-2 py-0.5 rounded bg-[#0B0F14] border border-[#2A3441] text-[10px] text-tactical-amber hover:border-tactical-amber"
             >
-              Explain the risk
+              Explain risk
             </button>
             <button
-              onClick={() => handleQuickAction("explain_uncertainty", "Explain the map & uncertainty")}
+              onClick={() => handleQuickAction("explain_uncertainty", "Explain map")}
               disabled={isProcessing}
               className="px-2 py-0.5 rounded bg-[#0B0F14] border border-[#2A3441] text-[10px] text-tactical-blue hover:border-tactical-blue"
             >
-              Explain the map
+              Explain map
             </button>
             <button
               onClick={() => handleQuickAction("what_changed", "What changed?")}
@@ -139,11 +143,11 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
               What changed?
             </button>
             <button
-              onClick={() => handleQuickAction("summarize", "Summarize the scenario")}
+              onClick={() => handleQuickAction("summarize", "Summarize")}
               disabled={isProcessing}
               className="px-2 py-0.5 rounded bg-[#0B0F14] border border-[#2A3441] text-[10px] text-slate-300 hover:text-white"
             >
-              Summarize scenario
+              Summarize
             </button>
           </div>
 
@@ -158,7 +162,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
                     : "bg-[#0B0F14] border border-[#2A3441] text-slate-200 mr-4"
                 }`}
               >
-                <div className="text-[9px] uppercase tracking-wider text-tactical-muted mb-1">
+                <div className="text-[9px] uppercase tracking-wider text-slate-400 mb-1">
                   {m.role === "user" ? "You" : "TACTIX Copilot"}
                 </div>
                 <div className="whitespace-pre-line">{m.content}</div>
@@ -166,7 +170,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
             ))}
             {isProcessing && (
               <div className="p-2 rounded-btn bg-[#0B0F14] text-[11px] text-tactical-green animate-pulse">
-                Evaluating simulation graph & preparing response...
+                Evaluating simulation parameters...
               </div>
             )}
           </div>
@@ -180,7 +184,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
               type="text"
               value={userQuery}
               onChange={(e) => setUserQuery(e.target.value)}
-              placeholder="Ask me about this simulation..."
+              placeholder="Ask about this simulation..."
               className="flex-1 bg-[#131A24] border border-[#2A3441] rounded-btn px-2.5 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-tactical-green"
             />
             <button
@@ -191,6 +195,7 @@ export function AICopilot({ scenario, coas, onRequestAnalysis }: AICopilotProps)
               <Send className="w-3.5 h-3.5" />
             </button>
           </form>
+
         </div>
       )}
     </div>

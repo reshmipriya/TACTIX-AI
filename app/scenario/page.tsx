@@ -13,7 +13,9 @@ import {
   TrendingUp, 
   TrendingDown,
   Layers,
-  HelpCircle
+  HelpCircle,
+  RefreshCw,
+  Send
 } from "lucide-react";
 import { 
   BarChart, 
@@ -40,28 +42,46 @@ export default function ScenarioLabPage() {
   const baseScenario = SCENARIOS[0];
   const [baseRun] = useState(() => runSimulation(baseScenario));
 
-  // What-If Parameter State Controls (Section 16)
+  // Current Working What-If Controls (Section 20)
   const [weather, setWeather] = useState<WeatherCondition>("HEAVY_RAIN");
   const [resourceLevel, setResourceLevel] = useState<number>(0.55);
   const [timeLimit, setTimeLimit] = useState<number>(5);
   const [intelConfidence, setIntelConfidence] = useState<number>(0.62);
   const [terrainCondition, setTerrainCondition] = useState<"ANY" | "AVOID_DIFFICULT" | "AVOID_WATER">("AVOID_WATER");
 
+  // Committed Simulation Run
+  const [committedParams, setCommittedParams] = useState({
+    weather: "HEAVY_RAIN" as WeatherCondition,
+    resourceLevel: 0.55,
+    timeLimit: 5,
+    intelConfidence: 0.62,
+    terrainCondition: "AVOID_WATER" as "ANY" | "AVOID_DIFFICULT" | "AVOID_WATER",
+  });
+
+  const [isSimulating, setIsSimulating] = useState(false);
   const [aiDeltaExplanation, setAiDeltaExplanation] = useState<string | null>(null);
   const [isAiExplaining, setIsAiExplaining] = useState(false);
 
-  // Compute what-if simulation dynamically
+  // Check if conditions have changed since last simulation (Section 21)
+  const hasUnsavedChanges = 
+    weather !== committedParams.weather ||
+    resourceLevel !== committedParams.resourceLevel ||
+    timeLimit !== committedParams.timeLimit ||
+    intelConfidence !== committedParams.intelConfidence ||
+    terrainCondition !== committedParams.terrainCondition;
+
+  // Compute what-if simulation dynamically from committed parameters
   const whatIfRun = useMemo(() => {
     return runSimulation(
       baseScenario,
-      weather,
-      resourceLevel,
-      timeLimit,
-      intelConfidence
+      committedParams.weather,
+      committedParams.resourceLevel,
+      committedParams.timeLimit,
+      committedParams.intelConfidence
     );
-  }, [weather, resourceLevel, timeLimit, intelConfidence]);
+  }, [committedParams, baseScenario]);
 
-  // Compute Before / After deltas
+  // Compute Before / After deltas (Section 20)
   const deltas = useMemo(() => {
     return computeScenarioDeltas(baseRun, whatIfRun);
   }, [baseRun, whatIfRun]);
@@ -75,7 +95,22 @@ export default function ScenarioLabPage() {
     { condition: "Severe Storm", Alpha: 74, Bravo: 62, Charlie: 82 },
   ];
 
-  // Request AI Delta Explanation
+  const handleRunWhatIf = () => {
+    setIsSimulating(true);
+    setCommittedParams({
+      weather,
+      resourceLevel,
+      timeLimit,
+      intelConfidence,
+      terrainCondition,
+    });
+    setAiDeltaExplanation(null);
+
+    setTimeout(() => {
+      setIsSimulating(false);
+    }, 600);
+  };
+
   const handleExplainDeltas = async () => {
     setIsAiExplaining(true);
     try {
@@ -105,13 +140,20 @@ export default function ScenarioLabPage() {
     setTimeLimit(5);
     setIntelConfidence(0.62);
     setTerrainCondition("AVOID_WATER");
+    setCommittedParams({
+      weather: "HEAVY_RAIN",
+      resourceLevel: 0.55,
+      timeLimit: 5,
+      intelConfidence: 0.62,
+      terrainCondition: "AVOID_WATER",
+    });
     setAiDeltaExplanation(null);
   };
 
   return (
     <div className="max-w-[1780px] w-full mx-auto p-4 lg:p-6 space-y-6 flex-1 font-mono">
-      {/* Header (Section 16) */}
-      <div className="tactical-panel p-5 space-y-2">
+      {/* Header Block (Section 20) */}
+      <div className="workflow-card p-5 space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
             <div className="p-2 rounded bg-tactical-amber/20 text-tactical-amber">
@@ -121,8 +163,8 @@ export default function ScenarioLabPage() {
               <h1 className="text-lg sm:text-xl font-bold text-slate-100 uppercase tracking-wide">
                 WHAT-IF SCENARIO LAB
               </h1>
-              <p className="text-xs text-tactical-muted">
-                See how changing conditions affects the simulation.
+              <p className="text-xs text-slate-400">
+                Change a condition and see how the simulation responds with live Before &rarr; After deltas.
               </p>
             </div>
           </div>
@@ -137,19 +179,22 @@ export default function ScenarioLabPage() {
         </div>
       </div>
 
-      {/* Main Grid: Left Controls, Right Comparison */}
+      {/* Main Grid: Left Controls, Right Comparison (Section 20 & 21) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left Column: Friendly What-If Sliders (Section 16) */}
-        <div className="lg:col-span-5 tactical-panel p-5 space-y-4">
+        {/* Left Column: Condition Controls */}
+        <div className="lg:col-span-5 workflow-card p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
             <h3 className="text-xs font-bold text-slate-100 uppercase tracking-wide flex items-center space-x-2">
               <Sliders className="w-4 h-4 text-tactical-amber" />
               <span>TEST CONDITIONS</span>
             </h3>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-tactical-green/10 text-tactical-green border border-tactical-green/30 font-semibold">
-              REAL-TIME SIMULATION
-            </span>
+
+            {hasUnsavedChanges && (
+              <span className="text-[10px] px-2 py-0.5 rounded bg-tactical-amber/20 text-tactical-amber border border-tactical-amber/40 font-bold animate-pulse">
+                Condition Changed
+              </span>
+            )}
           </div>
 
           {/* 1. Weather Dropdown */}
@@ -171,10 +216,10 @@ export default function ScenarioLabPage() {
             </select>
           </div>
 
-          {/* 2. Resources Slider (Low to High) */}
+          {/* 2. Resources Slider */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between text-slate-300 font-semibold">
-              <span>Resources Available:</span>
+              <span>Available Resources:</span>
               <span className="text-tactical-green font-bold">{Math.round(resourceLevel * 100)}%</span>
             </div>
             <input
@@ -186,13 +231,13 @@ export default function ScenarioLabPage() {
               onChange={(e) => setResourceLevel(parseFloat(e.target.value))}
               className="w-full accent-tactical-green cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-tactical-muted">
-              <span>Low (Scarcity)</span>
-              <span>High (Full Capacity)</span>
+            <div className="flex justify-between text-[10px] text-slate-500">
+              <span>20% (Scarcity)</span>
+              <span>100% (Full Capacity)</span>
             </div>
           </div>
 
-          {/* 3. Time Limit Slider */}
+          {/* 3. Time Available Slider */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between text-slate-300 font-semibold">
               <span>Time Available:</span>
@@ -207,7 +252,7 @@ export default function ScenarioLabPage() {
               onChange={(e) => setTimeLimit(parseInt(e.target.value, 10))}
               className="w-full accent-tactical-amber cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-tactical-muted">
+            <div className="flex justify-between text-[10px] text-slate-500">
               <span>2 Hours (Tight)</span>
               <span>16 Hours (Extended)</span>
             </div>
@@ -228,21 +273,22 @@ export default function ScenarioLabPage() {
               onChange={(e) => setIntelConfidence(parseFloat(e.target.value))}
               className="w-full accent-tactical-blue cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-tactical-muted">
-              <span>Low (High Uncertainty)</span>
-              <span>High (Clear Certainty)</span>
+            <div className="flex justify-between text-[10px] text-slate-500">
+              <span>10% (High Uncertainty)</span>
+              <span>95% (High Certainty)</span>
             </div>
           </div>
 
-          {/* 5. Terrain Condition Rule */}
+          {/* 5. Terrain Routing Preference */}
           <div className="space-y-1.5 text-xs">
-            <label className="text-slate-300 block font-semibold">Terrain Routing Rule:</label>
+            <label className="text-slate-300 block font-semibold">Terrain Preference:</label>
             <div className="grid grid-cols-3 gap-1.5">
               {(["ANY", "AVOID_DIFFICULT", "AVOID_WATER"] as const).map((mode) => (
                 <button
                   key={mode}
+                  type="button"
                   onClick={() => setTerrainCondition(mode)}
-                  className={`p-2 rounded-btn border text-[11px] font-mono transition-all ${
+                  className={`p-2 rounded-btn border text-[11px] transition-all ${
                     terrainCondition === mode
                       ? "bg-tactical-green/20 border-tactical-green text-tactical-green font-bold"
                       : "bg-[#0B0F14] border-[#2A3441] text-slate-400 hover:text-white"
@@ -253,18 +299,39 @@ export default function ScenarioLabPage() {
               ))}
             </div>
           </div>
+
+          {/* Primary CTA (Section 21 & 31) */}
+          <div className="pt-2 border-t border-[#2A3441]">
+            <button
+              onClick={handleRunWhatIf}
+              disabled={isSimulating}
+              className="w-full flex items-center justify-center space-x-2 py-3 rounded-btn bg-tactical-amber text-black font-bold text-xs uppercase hover:bg-tactical-amber/90 transition-all shadow-lg shadow-tactical-amber/10"
+            >
+              {isSimulating ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <span>RECALCULATING SIMULATION...</span>
+                </>
+              ) : (
+                <>
+                  <span>RUN WHAT-IF SIMULATION</span>
+                  <Send className="w-3.5 h-3.5 fill-black" />
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Right Column: Before vs After Delta Cards (Section 16) */}
+        {/* Right Column: Before -> After Comparison & What Changed (Section 20) */}
         <div className="lg:col-span-7 space-y-4">
           
-          {/* Before -> After Cards Grid */}
-          <div className="tactical-panel p-5 space-y-4">
+          {/* Side-by-Side Delta Comparison */}
+          <div className="workflow-card p-5 space-y-4">
             <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
               <h3 className="text-xs font-bold text-slate-100 uppercase tracking-wide">
-                BEFORE → AFTER SIMULATION COMPARISON
+                BEFORE &rarr; AFTER SIMULATION COMPARISON
               </h3>
-              <span className="text-[10px] text-tactical-muted">Real Simulation Outputs</span>
+              <span className="text-[10px] text-slate-400">Deterministic Engine Diffs</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -275,7 +342,7 @@ export default function ScenarioLabPage() {
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       d.whatIfStatus === "VALID" ? "bg-tactical-green/20 text-tactical-green" : "bg-tactical-red/20 text-tactical-red"
                     }`}>
-                      {d.whatIfStatus === "VALID" ? "✓ Valid" : "✕ Invalid"}
+                      {d.whatIfStatus === "VALID" ? "✓ VALID" : "✗ INVALID"}
                     </span>
                   </div>
 
@@ -301,7 +368,7 @@ export default function ScenarioLabPage() {
               ))}
             </div>
 
-            {/* Why Did Results Change? AI Button */}
+            {/* AI Explanation Trigger (Section 20) */}
             <div className="flex justify-end pt-1">
               <button
                 onClick={handleExplainDeltas}
@@ -309,14 +376,14 @@ export default function ScenarioLabPage() {
                 className="flex items-center space-x-2 px-4 py-2 rounded-btn bg-tactical-green text-black font-bold text-xs hover:bg-tactical-green/90 transition-all disabled:opacity-50 shadow-md shadow-tactical-green/10"
               >
                 <Sparkles className="w-3.5 h-3.5 fill-black" />
-                <span>{isAiExplaining ? "ANALYZING SHIFT..." : "WHY DID THE RESULTS CHANGE? (AI)"}</span>
+                <span>{isAiExplaining ? "EXPLAINING DIFF..." : "WHY DID THE RESULTS CHANGE? (AI)"}</span>
               </button>
             </div>
           </div>
 
-          {/* AI Explanation Box */}
+          {/* AI Explanation Result Box */}
           {aiDeltaExplanation && (
-            <div className="tactical-panel p-5 border-tactical-green/40 space-y-2 animate-in fade-in duration-200">
+            <div className="workflow-card p-5 border-tactical-green/40 space-y-2 animate-in fade-in duration-200">
               <div className="flex items-center space-x-2 text-tactical-green text-xs font-bold uppercase">
                 <Sparkles className="w-4 h-4" />
                 <span>WHY DID THE RESULTS CHANGE?</span>
@@ -328,9 +395,9 @@ export default function ScenarioLabPage() {
           )}
 
           {/* Sensitivity Graph */}
-          <div className="tactical-panel p-4 space-y-2">
+          <div className="workflow-card p-4 space-y-2">
             <h4 className="text-xs font-bold text-slate-100 uppercase tracking-wide">
-              WEATHER IMPACT SENSITIVITY CURVE
+              WEATHER SENSITIVITY CURVE
             </h4>
             <div className="h-40 w-full text-xs">
               <ResponsiveContainer width="100%" height="100%">

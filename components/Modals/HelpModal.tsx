@@ -1,7 +1,7 @@
 "use client";
 
 import { useViewMode } from "@/lib/context/ViewModeContext";
-import { HelpCircle, Play, X, Compass, Database, Shield, BookOpen } from "lucide-react";
+import { HelpCircle, Play, X, Compass, Database, Shield, BookOpen, Layers, GitBranch, BarChart3, FlaskConical } from "lucide-react";
 
 export function HelpModal() {
   const { isHelpOpen, closeHelp, startTour } = useViewMode();
@@ -10,7 +10,7 @@ export function HelpModal() {
 
   return (
     <div className="fixed inset-0 z-50 bg-[#0B0F14]/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-[#131A24] border border-tactical-blue/40 rounded-panel p-6 shadow-2xl space-y-5 font-mono text-xs relative max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-3xl bg-[#131A24] border border-tactical-blue/40 rounded-panel p-6 shadow-2xl space-y-5 font-mono text-xs relative max-h-[90vh] overflow-y-auto">
         
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#2A3441] pb-3">
@@ -26,21 +26,78 @@ export function HelpModal() {
           </button>
         </div>
 
-        {/* Core Principles */}
+        {/* Guided Tour Replay Card (Chapter 20) */}
+        <div className="bg-[#1A2330] p-3.5 rounded-btn border border-tactical-green/40 flex flex-wrap items-center justify-between gap-3">
+          <div className="space-y-0.5">
+            <span className="font-bold text-slate-100 text-xs uppercase block text-tactical-green">GUIDED TOUR</span>
+            <span className="text-slate-300 text-[11px]">Take a quick walkthrough of the TACTIX workflow.</span>
+          </div>
+          <button
+            onClick={startTour}
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-btn bg-tactical-green text-black font-bold text-xs hover:bg-tactical-green/90 transition-all flex-shrink-0 shadow-md shadow-tactical-green/10"
+          >
+            <Play className="w-3.5 h-3.5 fill-black" />
+            <span>Replay Guided Tour</span>
+          </button>
+        </div>
+
+        {/* Overview Box */}
         <div className="bg-[#0B0F14] p-3.5 rounded-btn border border-[#2A3441] space-y-1.5 leading-relaxed text-slate-300">
           <p className="text-slate-100 font-semibold">
-            TACTIX AI is an AI-assisted simulated mission-planning decision-support prototype.
+            TACTIX AI is a controlled simulation and decision-support prototype.
           </p>
           <p className="text-tactical-muted">
-            It combines real public geospatial and weather data with synthetic operational profiles to compute, simulate, and score candidate Courses of Action (COAs) transparently.
+            It combines real public environmental datasets with synthetic operational variables to model scenarios, generate simulated alternatives, and calculate transparent risk scores.
           </p>
         </div>
 
-        {/* Dataset Summary (Section 18) */}
-        <div className="space-y-2">
+        {/* 1. Core Concepts Explained Simply */}
+        <div className="space-y-3">
           <h3 className="text-xs font-semibold text-tactical-green uppercase flex items-center space-x-1.5">
+            <Compass className="w-3.5 h-3.5" />
+            <span>How TACTIX Works</span>
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-[11px]">
+            <div className="bg-[#1A2330] p-3 rounded-btn border border-[#2A3441] space-y-1">
+              <span className="font-bold text-slate-100 flex items-center space-x-1.5">
+                <GitBranch className="w-3.5 h-3.5 text-tactical-green" />
+                <span>Simulated Options (Alpha, Bravo, Charlie)</span>
+              </span>
+              <p className="text-slate-300">
+                • <b>Option Alpha:</b> Faster simulated option optimized for minimum duration.<br />
+                • <b>Option Bravo:</b> Resource-efficient option minimizing fuel consumption.<br />
+                • <b>Option Charlie:</b> Lower environmental difficulty avoiding steep slopes and water.
+              </p>
+            </div>
+
+            <div className="bg-[#1A2330] p-3 rounded-btn border border-[#2A3441] space-y-1">
+              <span className="font-bold text-slate-100 flex items-center space-x-1.5">
+                <BarChart3 className="w-3.5 h-3.5 text-tactical-amber" />
+                <span>Understanding Risk (0 to 100)</span>
+              </span>
+              <p className="text-slate-300">
+                Risk is calculated directly from simulation outputs using: Terrain difficulty (22%), Weather impact (22%), Resource availability (20%), Information uncertainty (18%), Time pressure (10%), and Constraints (8%).
+              </p>
+            </div>
+
+            <div className="bg-[#1A2330] p-3 rounded-btn border border-[#2A3441] space-y-1 sm:col-span-2">
+              <span className="font-bold text-slate-100 flex items-center space-x-1.5">
+                <FlaskConical className="w-3.5 h-3.5 text-tactical-blue" />
+                <span>Understanding What-If Lab</span>
+              </span>
+              <p className="text-slate-300">
+                Allows operators to adjust weather severities, available fuel, and deadlines to immediately observe real-time before/after simulation deltas without manual recalculation.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Data Provenance */}
+        <div className="space-y-2">
+          <h3 className="text-xs font-semibold text-tactical-blue uppercase flex items-center space-x-1.5">
             <Database className="w-3.5 h-3.5" />
-            <span>Underlying Data Sources & Provenance</span>
+            <span>Data Sources & Provenance</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
@@ -50,12 +107,12 @@ export function HelpModal() {
             </div>
 
             <div className="bg-[#1A2330] p-2.5 rounded-btn border border-[#2A3441]">
-              <span className="font-semibold text-slate-100 block">Geographic Features (OSM)</span>
+              <span className="font-semibold text-slate-100 block">Roads & Geography (OSM)</span>
               <span className="text-slate-400">OpenStreetMap provides roads, waterways, bridges, and infrastructure networks.</span>
             </div>
 
             <div className="bg-[#1A2330] p-2.5 rounded-btn border border-[#2A3441]">
-              <span className="font-semibold text-slate-100 block">Land Cover (Copernicus)</span>
+              <span className="font-semibold text-slate-100 block">Land Types (Copernicus)</span>
               <span className="text-slate-400">Copernicus Global Service provides satellite-derived vegetation and land friction factors.</span>
             </div>
 
@@ -71,11 +128,11 @@ export function HelpModal() {
           </div>
         </div>
 
-        {/* Ethical / Scope Disclaimers */}
+        {/* 3. Ethical / Simulation-Only Framing */}
         <div className="p-3 bg-[#1A2330] rounded-btn border border-tactical-amber/40 text-[11px] text-slate-300 space-y-1">
           <div className="flex items-center space-x-1.5 text-tactical-amber font-semibold">
             <Shield className="w-3.5 h-3.5" />
-            <span>Scope & Responsible Use Framing</span>
+            <span>Simulation Scope & Responsible Use Framing</span>
           </div>
           <p className="text-slate-400">
             • TACTIX AI estimates risk within a controlled simulated environment using environmental, logistical, and constraint variables.
@@ -86,26 +143,7 @@ export function HelpModal() {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#2A3441]">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={startTour}
-              className="flex items-center space-x-2 px-4 py-2 rounded-btn bg-tactical-green text-black font-bold text-xs hover:bg-tactical-green/90 transition-all"
-            >
-              <Play className="w-3.5 h-3.5 fill-black" />
-              <span>REPLAY GUIDED TOUR</span>
-            </button>
-
-            <a
-              href="/TACTIX_AI_Comprehensive_Guide.pdf"
-              download="TACTIX_AI_Comprehensive_Guide.pdf"
-              className="flex items-center space-x-1.5 px-3 py-2 rounded-btn bg-[#1A2330] border border-[#2A3441] text-xs text-tactical-blue hover:text-white hover:border-tactical-blue transition-all"
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Download PDF Guide</span>
-            </a>
-          </div>
-
+        <div className="flex items-center justify-end pt-2 border-t border-[#2A3441]">
           <button
             onClick={closeHelp}
             className="px-4 py-2 rounded-btn bg-[#1A2330] border border-[#2A3441] text-xs text-slate-300 hover:text-white"

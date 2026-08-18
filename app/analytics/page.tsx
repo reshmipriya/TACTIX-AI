@@ -3,14 +3,10 @@
 import { useState } from "react";
 import { 
   BarChart3, 
-  PieChart as PieIcon, 
   TrendingUp, 
-  CheckCircle2, 
-  AlertTriangle, 
-  XCircle,
-  Activity,
-  Layers,
-  Cpu
+  Activity, 
+  Layers, 
+  Cpu 
 } from "lucide-react";
 import { 
   BarChart, 
@@ -22,9 +18,7 @@ import {
   PieChart, 
   Pie, 
   Cell, 
-  Legend, 
-  LineChart, 
-  Line 
+  Legend 
 } from "recharts";
 import { AICopilot } from "@/components/AI/AICopilot";
 import { SCENARIOS, runSimulation } from "@/lib/scenario/scenarioStore";
@@ -32,39 +26,32 @@ import { SCENARIOS, runSimulation } from "@/lib/scenario/scenarioStore";
 export default function AnalyticsPage() {
   const [simResult] = useState(() => runSimulation(SCENARIOS[0]));
 
-  // Aggregate Synthetic Batch Statistics
+  // Chapter 20: Aggregate Batch Statistics
   const totalSimulations = 3280;
   const avgRiskScore = 41.6;
   const validRate = 88.4;
   const avgDuration = 4.7;
 
-  // COA Distribution Data
-  const coaDistributionData = [
-    { name: "COA Bravo (Resource-Opt)", value: 54, color: "#3B82F6" },
-    { name: "COA Alpha (Speed-Opt)", value: 31, color: "#00D9A3" },
-    { name: "COA Charlie (Env-Bypass)", value: 15, color: "#FFB020" },
+  // Simulated Option Distribution Data
+  const optionDistributionData = [
+    { name: "Option Bravo (Resource-Opt)", value: 54, color: "#3B82F6" },
+    { name: "Option Alpha (Speed-Opt)", value: 31, color: "#00D9A3" },
+    { name: "Option Charlie (Env-Bypass)", value: 15, color: "#FFB020" },
   ];
 
   // Risk Component Contribution Averages
   const riskComponentsData = [
-    { factor: "Terrain", contribution: 12.4, fullWeight: 22 },
-    { factor: "Weather", contribution: 14.1, fullWeight: 22 },
-    { factor: "Logistics", contribution: 8.6, fullWeight: 20 },
-    { factor: "Intel Uncertainty", contribution: 6.2, fullWeight: 18 },
+    { factor: "Weather Impact", contribution: 14.1, fullWeight: 22 },
+    { factor: "Terrain Difficulty", contribution: 12.4, fullWeight: 22 },
+    { factor: "Resource Availability", contribution: 8.6, fullWeight: 20 },
+    { factor: "Info Uncertainty", contribution: 6.2, fullWeight: 18 },
     { factor: "Time Pressure", contribution: 3.8, fullWeight: 10 },
-    { factor: "Constraint Stress", contribution: 2.1, fullWeight: 8 },
-  ];
-
-  // Constraint Outcome Distribution
-  const outcomeData = [
-    { status: "VALID (Fully Compliant)", percentage: 88, fill: "#00D9A3" },
-    { status: "WARNING (Near Ceiling)", percentage: 9, fill: "#FFB020" },
-    { status: "INVALID (Violations)", percentage: 3, fill: "#FF3B5C" },
+    { factor: "Constraint Impact", contribution: 2.1, fullWeight: 8 },
   ];
 
   return (
-    <div className="max-w-[1780px] w-full mx-auto p-4 lg:p-6 space-y-6 flex-1">
-      {/* Header */}
+    <div className="max-w-[1780px] w-full mx-auto p-4 lg:p-6 space-y-6 flex-1 font-mono">
+      {/* Header Block (Chapter 20) */}
       <div className="tactical-panel p-5 space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
@@ -72,24 +59,24 @@ export default function AnalyticsPage() {
               <BarChart3 className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="font-mono text-xl font-bold text-slate-100 uppercase tracking-wide">
-                AGGREGATE SIMULATION ANALYTICS (SECTION 43)
+              <h1 className="text-xl font-bold text-slate-100 uppercase tracking-wide">
+                AGGREGATE SIMULATION ANALYTICS
               </h1>
-              <p className="text-xs text-tactical-muted font-mono">
+              <p className="text-xs text-tactical-muted">
                 Monte Carlo Batch Runs · Distribution Profiling · Sensitivity Matrices
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 font-mono text-xs text-tactical-green bg-[#1A2330] px-3 py-1.5 rounded-btn border border-[#2A3441]">
+          <div className="flex items-center space-x-2 text-xs text-tactical-green bg-[#1A2330] px-3 py-1.5 rounded-btn border border-[#2A3441]">
             <Activity className="w-3.5 h-3.5" />
             <span>N = 3,280 Simulated Executions</span>
           </div>
         </div>
       </div>
 
-      {/* Top Stat Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+      {/* Top Stat Cards Grid (Chapter 20 Above-the-Fold KPIs) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="tactical-panel p-4 space-y-1">
           <span className="text-[11px] text-slate-400 uppercase tracking-wider block">
             Total Batch Runs
@@ -108,7 +95,7 @@ export default function AnalyticsPage() {
 
         <div className="tactical-panel p-4 space-y-1">
           <span className="text-[11px] text-slate-400 uppercase tracking-wider block">
-            Constraint Compliance
+            Rule Check Compliance
           </span>
           <span className="text-2xl font-bold text-tactical-blue">{validRate}%</span>
           <span className="text-[10px] text-tactical-green block">97.2% Valid or Warning</span>
@@ -119,17 +106,17 @@ export default function AnalyticsPage() {
             Mean Transit Duration
           </span>
           <span className="text-2xl font-bold text-tactical-amber">{avgDuration} Hours</span>
-          <span className="text-[10px] text-tactical-muted block">Across 42.8 km² AOI</span>
+          <span className="text-[10px] text-tactical-muted block">Across 42.8 km² Study Area</span>
         </div>
       </div>
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* COA Preferred Distribution Pie */}
-        <div className="lg:col-span-4 tactical-panel p-4 space-y-3 font-mono">
+        {/* Option Distribution Pie */}
+        <div className="lg:col-span-4 tactical-panel p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
             <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wide">
-              COA SELECTION DISTRIBUTION
+              SIMULATED OPTION DISTRIBUTION
             </h3>
             <span className="text-[10px] text-tactical-muted">Preferred Alternative</span>
           </div>
@@ -138,7 +125,7 @@ export default function AnalyticsPage() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={coaDistributionData}
+                  data={optionDistributionData}
                   cx="50%"
                   cy="50%"
                   innerRadius={50}
@@ -146,7 +133,7 @@ export default function AnalyticsPage() {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {coaDistributionData.map((entry, index) => (
+                  {optionDistributionData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
@@ -158,12 +145,12 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Risk Factor Breakdown Across Batch */}
-        <div className="lg:col-span-8 tactical-panel p-4 space-y-3 font-mono">
+        <div className="lg:col-span-8 tactical-panel p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-[#2A3441] pb-2">
             <h3 className="text-xs font-semibold text-slate-100 uppercase tracking-wide">
               AVERAGE RISK COMPONENT CONTRIBUTIONS (N=3,280)
             </h3>
-            <span className="text-[10px] text-tactical-muted">Documented Weights</span>
+            <span className="text-[10px] text-tactical-muted">Weighted Formula</span>
           </div>
 
           <div className="h-64 w-full text-xs">
@@ -179,12 +166,12 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* ML Validation Results Summary Card */}
-      <div className="tactical-panel p-4 space-y-3 font-mono">
+      {/* Offline ML Validation Experiment (Random Forest) */}
+      <div className="tactical-panel p-4 space-y-3">
         <div className="flex items-center space-x-2 text-tactical-green border-b border-[#2A3441] pb-2">
           <Cpu className="w-4 h-4" />
           <h3 className="text-xs font-semibold uppercase tracking-wide">
-            MACHINE LEARNING EXPERIMENT VALIDATION (SECTION 22)
+            OFFLINE ML VALIDATION EXPERIMENT (RANDOM FOREST REGRESSOR)
           </h3>
         </div>
 
@@ -192,7 +179,7 @@ export default function AnalyticsPage() {
           <div className="bg-[#0B0F14] p-3 rounded border border-[#2A3441]">
             <span className="text-slate-400 text-[10px] block">MEAN ABSOLUTE ERROR (MAE)</span>
             <span className="text-xl font-bold text-tactical-green mt-1 block">0.296</span>
-            <span className="text-[9px] text-tactical-muted">Exceptional alignment to ground truth</span>
+            <span className="text-[9px] text-tactical-muted">Convergence to mathematical ground truth</span>
           </div>
 
           <div className="bg-[#0B0F14] p-3 rounded border border-[#2A3441]">
