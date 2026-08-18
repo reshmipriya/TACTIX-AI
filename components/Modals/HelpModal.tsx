@@ -87,13 +87,24 @@ export function HelpModal() {
 
         {/* Actions */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#2A3441]">
-          <button
-            onClick={startTour}
-            className="flex items-center space-x-2 px-4 py-2 rounded-btn bg-tactical-green text-black font-bold text-xs hover:bg-tactical-green/90 transition-all"
-          >
-            <Play className="w-3.5 h-3.5 fill-black" />
-            <span>REPLAY GUIDED TOUR</span>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={startTour}
+              className="flex items-center space-x-2 px-4 py-2 rounded-btn bg-tactical-green text-black font-bold text-xs hover:bg-tactical-green/90 transition-all"
+            >
+              <Play className="w-3.5 h-3.5 fill-black" />
+              <span>REPLAY GUIDED TOUR</span>
+            </button>
+
+            <a
+              href="/TACTIX_AI_Comprehensive_Guide.pdf"
+              download="TACTIX_AI_Comprehensive_Guide.pdf"
+              className="flex items-center space-x-1.5 px-3 py-2 rounded-btn bg-[#1A2330] border border-[#2A3441] text-xs text-tactical-blue hover:text-white hover:border-tactical-blue transition-all"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Download PDF Guide</span>
+            </a>
+          </div>
 
           <button
             onClick={closeHelp}
