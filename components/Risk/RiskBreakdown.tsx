@@ -40,7 +40,7 @@ export function RiskBreakdown({ coa }: RiskBreakdownProps) {
   };
 
   return (
-    <div id="risk-section" className="tactical-panel p-5 space-y-4 font-mono">
+    <div id="risk-summary" data-tour="risk-summary" className="tactical-panel p-5 space-y-4 font-mono">
       
       {/* Header Block (Chapter 15) */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2A3441] pb-3">

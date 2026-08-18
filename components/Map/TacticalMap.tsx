@@ -634,7 +634,7 @@ export function TacticalMap({
       </div>
 
       {/* Map Canvas Viewport (Section 19: Responsive height 420px to 480px) */}
-      <div className="relative w-full h-[400px] sm:h-[460px] bg-[#0B0F14] rounded-btn border border-[#2A3441] overflow-hidden">
+      <div id="simulation-map" data-tour="simulation-map" className="relative w-full h-[400px] sm:h-[460px] bg-[#0B0F14] rounded-btn border border-[#2A3441] overflow-hidden">
         <canvas
           ref={canvasRef}
           width={1100}
@@ -715,9 +715,9 @@ export function TacticalMap({
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: hoveredCOA.color }} />
               <span className="font-bold text-slate-100 uppercase">OPTION {hoveredCOA.name}</span>
             </div>
-            <p className="text-[11px] text-tactical-green font-semibold">{hoveredCOA.description}</p>
+            <p className="text-[11px] text-tactical-green font-semibold">{hoveredCOA.tagline}</p>
             <div className="flex items-center space-x-3 text-[10px] text-slate-300 pt-0.5 border-t border-[#2A3441]">
-              <span>Risk: <b>{hoveredCOA.metrics.risk_score}/100</b></span>
+              <span>Risk: <b>{hoveredCOA.risk.overall}/100</b></span>
               <span>Duration: <b>{hoveredCOA.metrics.estimated_duration_hours}h</b></span>
               <span>Resources: <b>{Math.round(hoveredCOA.metrics.resource_consumption * 100)}%</b></span>
             </div>

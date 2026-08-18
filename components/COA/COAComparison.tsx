@@ -43,7 +43,7 @@ export function COAComparison({
       </div>
 
       {/* 3 Decision Option Cards (Section 13) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+      <div id="simulated-options" data-tour="simulated-options" className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         {coas.map((coa) => (
           <COACard
             key={coa.id}
