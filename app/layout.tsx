@@ -8,7 +8,7 @@ import { HelpModal } from "@/components/Modals/HelpModal";
 import { WhyModal } from "@/components/Modals/WhyModal";
 
 export const metadata: Metadata = {
-  title: "TACTIX AI | AI-Assisted Simulated Mission-Planning Platform",
+  title: "TACTIX AI | AI-Assisted Mission Planning",
   description: "Deterministic environmental simulation, multi-objective COA evaluation, and explainable risk analysis grounded in real geospatial data.",
 };
 

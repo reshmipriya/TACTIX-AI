@@ -87,7 +87,21 @@ const TOUR_STEPS: TourStepDef[] = [
   },
   {
     stepIndex: 7,
-    title: "7. Test What-If Scenarios",
+    title: "7. Actionable Operational Mission Plan",
+    targetId: "mission-plan-section",
+    lead: "Translates the simulated risk score into plain natural-language soldier directives.",
+    bullets: [
+      { icon: Check, title: "Gear & Equipment", desc: "Waterproofing, mud chains, slope ropes", color: "#3B82F6" },
+      { icon: Check, title: "Convoy Pacing", desc: "Safe speed limits & convoy spacing", color: "#00D9A3" },
+      { icon: Check, title: "Resource Rules", desc: "Fuel reserves & power conservation", color: "#FFB020" },
+      { icon: Compass, title: "Intel Cadence", desc: "Radio check intervals & drone scouting", color: "#8B6F47" },
+    ],
+    details: "Provides concrete squad commander directives, supply management guidelines, and emergency abort contingency triggers.",
+    callout: "In the What-If Lab, this mission plan updates dynamically as you change scenario parameters.",
+  },
+  {
+    stepIndex: 8,
+    title: "8. Test What-If Scenarios",
     targetId: "what-if-action",
     lead: "Want to see what happens when conditions change?",
     details: "Open What-If to change conditions such as weather, resources or available time and run the simulation again.",
@@ -95,7 +109,7 @@ const TOUR_STEPS: TourStepDef[] = [
   },
 ];
 
-const TOTAL_STEPS = 7;
+const TOTAL_STEPS = 8;
 
 export function GuidedTourModal() {
   const { isTourOpen, closeTour, tourStep, setTourStep } = useViewMode();

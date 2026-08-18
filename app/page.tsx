@@ -13,6 +13,7 @@ import { IntelligencePanel } from "@/components/Intelligence/IntelligencePanel";
 import { ConstraintsPanel } from "@/components/Constraints/ConstraintsPanel";
 import { COAComparison } from "@/components/COA/COAComparison";
 import { RiskBreakdown } from "@/components/Risk/RiskBreakdown";
+import { MissionPlanPanel } from "@/components/Mission/MissionPlanPanel";
 import { AIAnalysisPanel } from "@/components/AI/AIAnalysisPanel";
 import { AICopilot } from "@/components/AI/AICopilot";
 import { 
@@ -180,6 +181,15 @@ export default function MissionCommandPage() {
           />
         </div>
       </div>
+
+      {/* 3.5 ACTIONABLE OPERATIONAL MISSION PLAN FOR SOLDIERS */}
+      <MissionPlanPanel
+        coa={selectedCOA}
+        scenario={simResult.scenario}
+        weather={interpretedParams?.weather}
+        resourceLevel={interpretedParams?.resource_level}
+        timeLimit={interpretedParams?.time_limit}
+      />
 
       {/* 4. WHAT-IF ENTRY BANNER (Section 5 & 20) */}
       <div id="whatif-section" className="workflow-card p-5 bg-gradient-to-r from-[#141F2D] via-[#111A24] to-[#101722] border border-tactical-amber/30 flex flex-wrap items-center justify-between gap-4 font-mono">

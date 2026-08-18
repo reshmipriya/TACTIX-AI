@@ -35,6 +35,7 @@ import {
 } from "@/lib/scenario/scenarioStore";
 import { WeatherCondition } from "@/lib/environment/types";
 import { AICopilot } from "@/components/AI/AICopilot";
+import { MissionPlanPanel } from "@/components/Mission/MissionPlanPanel";
 import { useViewMode } from "@/lib/context/ViewModeContext";
 
 export default function ScenarioLabPage() {
@@ -415,6 +416,17 @@ export default function ScenarioLabPage() {
 
         </div>
       </div>
+
+      {/* Dynamic What-If Operational Mission Plan */}
+      <MissionPlanPanel
+        coa={whatIfRun.preferredCOA}
+        scenario={whatIfRun.scenario}
+        weather={committedParams.weather}
+        resourceLevel={committedParams.resourceLevel}
+        timeLimit={committedParams.timeLimit}
+        intelConfidence={committedParams.intelConfidence}
+        isWhatIf={true}
+      />
 
       <AICopilot
         scenario={whatIfRun.scenario}

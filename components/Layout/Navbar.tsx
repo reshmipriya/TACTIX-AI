@@ -43,7 +43,7 @@ export function Navbar() {
                 </span>
               </div>
               <p className="text-[10px] text-tactical-muted tracking-tight hidden md:block">
-                AI-Assisted Simulation & Risk Platform
+                AI-Assisted Mission Planning
               </p>
             </div>
           </Link>

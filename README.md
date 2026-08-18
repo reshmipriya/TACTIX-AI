@@ -1,4 +1,4 @@
-# TACTIX AI — AI-Assisted Simulated Mission-Planning Platform
+# TACTIX AI — AI-Assisted Mission Planning
 
 TACTIX AI is a production-grade, explainable decision-support simulation platform built with Next.js 15, TypeScript, MapLibre GL, Recharts, and OpenAI. It combines real public geospatial and meteorological datasets (SRTM DEM, OpenStreetMap, Copernicus Land Cover, ERA5 Weather) with synthetic logistics and intelligence modeling to generate, simulate, and score candidate Courses of Action (COAs).
 

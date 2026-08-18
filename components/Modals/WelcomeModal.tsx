@@ -32,7 +32,7 @@ export function WelcomeModal() {
             TACTIX <span className="text-tactical-green">AI</span>
           </h2>
           <p className="text-sm sm:text-base font-semibold text-slate-300 font-mono">
-            AI-Assisted Simulation & Risk Platform
+            AI-Assisted Mission Planning
           </p>
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
             Explore simulated scenarios, compare alternatives, understand risk, and test what-if conditions with real environmental data and explainable models.
